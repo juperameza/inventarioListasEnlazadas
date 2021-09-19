@@ -9,17 +9,17 @@
       
     }
     buscar(codigo){
-        for (let i=0;i<this.productos.length;i++){
-        if (codigo==this.productos[i].getCodigo()){
-            return i;
-        }
+        for (let i=0;i<this.productos.length;i++)
+            if (codigo==this.productos[i].codigo)
+              return this.productos[i];
+          return null;
     }
           
    
-    }
+    
     agregar(nuevo){
         let pos = this.buscar(nuevo.getCodigo());
-        if(pos>=0){
+        if(pos!=null){
             return null;
         }
     

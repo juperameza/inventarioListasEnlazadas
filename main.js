@@ -4,6 +4,8 @@ import Producto from "./producto.js";
     constructor(){
       this._inventory= new Inventario();
       const btnRegister= document.getElementById("btnAdd");
+      const  btnBuscar=document.getElementById("btnSearch");
+      btnBuscar.addEventListener("click",  this._searchProduct)
       btnRegister.addEventListener("click", this._addProduct)    
     }
     _addProduct=()=>{
@@ -19,6 +21,15 @@ import Producto from "./producto.js";
       }
       document.getElementById("resultado").innerHTML=`Agregaste el producto ${producto.infoHtml()}`;
       console.log(this._inventory)
+    }
+    _searchProduct=()=>{
+      let codigo=document.getElementById('txtCodigo').value;
+    let buscado=this._inventory.buscar(codigo);
+    let detalles=document.getElementById('resultado');
+    if (buscado==null)
+      detalles.innerHTML = "<h3>No se encontro la codigo buscada</h3>";
+    else
+      detalles.innerHTML = "<h3>encontramos</h3>" + buscado.infoHtml()
     }
  }
  new App();

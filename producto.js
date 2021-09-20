@@ -23,8 +23,8 @@ export default class Producto{
     infoHtml(){
       return `
                 <div>
-                    <h3>${this.codigo} - ${this.costo}</h3>
-                    <p>${this.cantidad} ${this.nombre}</p>
+                    <h3>${this.codigo} - ${this.nombre}</h3>
+                    <p> $${this.costo} ${this.cantidad} Precio final=${this.getPrecioFinal()}</p>
                 </div>
             `;
     }
@@ -33,7 +33,7 @@ export default class Producto{
         let inpNombre=document.getElementById("txtNombre");
         let inpCantidad=document.getElementById("txtCantidad");
         let inpCosto=document.getElementById("txtCosto");
-        let codigo=inpCodigo.value;
+        let codigo=Number(inpCodigo.value);
         let nombre=inpNombre.value;
         let cantidad=Number(inpCantidad.value);
         let costo=Number(inpCosto.value);

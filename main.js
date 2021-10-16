@@ -16,15 +16,33 @@ import Producto from "./producto.js";
       btnBuscar.addEventListener("click",  this._searchProduct)
       btnRegister.addEventListener("click", this._addProduct)    
     }
+      readForm(){
+        let inpCodigo=document.getElementById("txtCodigo");
+        let inpNombre=document.getElementById("txtNombre");
+        let inpCantidad=document.getElementById("txtCantidad");
+        let inpCosto=document.getElementById("txtCosto");
+        let codigo=Number(inpCodigo.value);
+        let nombre=inpNombre.value;
+        let cantidad=Number(inpCantidad.value);
+        let costo=Number(inpCosto.value);
+        if(codigo&&nombre&&cantidad&&costo){
+            inpCodigo.value="";
+            inpNombre.value="";
+            inpCantidad.value="";
+            inpCosto.value=""; 
+            return new Producto(codigo, nombre, cantidad, costo);
+        }
+        return null;
+    }
     _addProduct=()=>{
-      let producto= Producto.readForm();
+      let producto= this.readForm();
       if(producto==null){
         document.getElementById("resultado").innerHTML="Error todos los campos son requeridos";
         return;
       }
       let added=this._inventory.agregar(producto);
       if(added==null){
-        if(this._inventory.productos.length>=20){
+        if(this._inventory.getLength()>=20){
           document.getElementById("resultado").innerHTML="Error maximo 20 productos";
           return
         }
@@ -58,34 +76,28 @@ import Producto from "./producto.js";
     }
     _listProducts=()=>{
       let detalles=document.getElementById('resultado');
-      detalles.innerHTML=""
-      this._inventory.productos.forEach(p => {
-        detalles.innerHTML+= p.infoHtml();
-      });
+      detalles.innerHTML=this._inventory.list();
     }
     _inverseListProducts=()=>{
       let detalles=document.getElementById('resultado');
-      detalles.innerHTML=""
-      for(let i=this._inventory.productos.length-1;i>=0;i--){
-        const p = this._inventory.productos[i];
-        detalles.innerHTML+= p.infoHtml();
+      detalles.innerHTML=this._inventory.inverseList();
       }
-    }
+    
     _insertProduct=()=>{
       let pos=document.getElementById('txtPos').value;
-      let producto= Producto.readForm();
+      let producto= this.readForm();
       if(producto==null||pos==""){
         document.getElementById("resultado").innerHTML="Error todos los campos son requeridos";
         return;
       }
       pos=Number(pos)
-      if(pos>this._inventory.productos.length-1){
-        document.getElementById("resultado").innerHTML=`Error posicion fuera de el limite <i>Limite : ${this._inventory.productos.length-1}</i>`;
+      if(pos>this._inventory.getLength()-1){
+        document.getElementById("resultado").innerHTML=`Error posicion fuera de el limite <i>Limite : ${this._inventory.getLength()-1}</i>`;
         return;
       }
       let added=this._inventory.insertar(pos,producto);
       if(added==null){
-        if(this._inventory.productos.length>=20){
+        if(this._inventory.getLength()>=20){
           document.getElementById("resultado").innerHTML="Error maximo 20 productos";
           return
         }
@@ -95,7 +107,7 @@ import Producto from "./producto.js";
       document.getElementById("resultado").innerHTML=`Agregaste el producto ${producto.infoHtml()} en la posicion ${pos}`;
       console.log(this._inventory)
     }
- }
+  }
  new App();
 
   //interacción con el usuario

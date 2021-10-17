@@ -42,10 +42,6 @@ import Producto from "./producto.js";
       }
       let added=this._inventory.agregar(producto);
       if(added==null){
-        if(this._inventory.getLength()>=20){
-          document.getElementById("resultado").innerHTML="Error maximo 20 productos";
-          return
-        }
         document.getElementById("resultado").innerHTML="Error producto ya registrado";
         return;
       }
@@ -62,14 +58,14 @@ import Producto from "./producto.js";
       detalles.innerHTML = "<h3>encontramos</h3>" + buscado.infoHtml()
     }
     _deleteProduct=()=>{
-      let codigo=document.getElementById('txtCodigo').value;
-      let buscado=this._inventory.buscar(codigo);
       let detalles=document.getElementById('resultado');
-    if (buscado==null)
+      let codigo=document.getElementById('txtCodigo').value;
+      let elim = this._inventory.eliminar(codigo)
+    if (elim==null)
       detalles.innerHTML = "<h3>El codigo que deseas eliminar no se encuentra</h3>";
     else{
-      detalles.innerHTML = "<h3>Eliminaste el producto</h3>" + buscado.infoHtml()
-     this._inventory.borrar(codigo);
+      detalles.innerHTML = "<h3>Eliminaste el producto</h3>" + elim.infoHtml()
+     
     }
     
      

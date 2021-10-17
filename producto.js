@@ -4,6 +4,7 @@ export default class Producto{
       this.nombre=nombre;
       this.cantidad=cantidad;
       this.costo=costo;
+      this.siguiente=null;
     }
    getCodigo(){
        return this.codigo;
@@ -28,22 +29,5 @@ export default class Producto{
                 </div>
             `;
     }
-    static readForm(){
-        let inpCodigo=document.getElementById("txtCodigo");
-        let inpNombre=document.getElementById("txtNombre");
-        let inpCantidad=document.getElementById("txtCantidad");
-        let inpCosto=document.getElementById("txtCosto");
-        let codigo=Number(inpCodigo.value);
-        let nombre=inpNombre.value;
-        let cantidad=Number(inpCantidad.value);
-        let costo=Number(inpCosto.value);
-        if(codigo&&nombre&&cantidad&&costo){
-            inpCodigo.value="";
-            inpNombre.value="";
-            inpCantidad.value="";
-            inpCosto.value=""; 
-            return new Producto(codigo, nombre, cantidad, costo);
-        }
-        return null;
-    }
+   
   }

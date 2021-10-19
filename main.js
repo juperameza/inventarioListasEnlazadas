@@ -9,14 +9,14 @@ import Producto from "./producto.js";
         const  btnListar=document.getElementById("btnList");
         const  btnListarReves=document.getElementById("btnInvList");
         const  btnInsertar=document.getElementById("btnInsert");
-        const btmRandom=document.getElementById("ranDom")
+       // const btmRandom=document.getElementById("ranDom")
         btnEliminar.addEventListener("click",  this._deleteProduct)
         btnInsertar.addEventListener("click",  this._insertProduct)
         btnListarReves.addEventListener("click",  this._inverseListProducts)
         btnListar.addEventListener("click",  this._listProducts)
       btnBuscar.addEventListener("click",  this._searchProduct)
       btnRegister.addEventListener("click", this._addProduct)   
-      btmRandom.addEventListener("click",this._random) 
+     // btmRandom.addEventListener("click",this._random) 
     }
       readForm(){
         let inpCodigo=document.getElementById("txtCodigo");
@@ -111,13 +111,13 @@ import Producto from "./producto.js";
       console.log(this._inventory.contar())
     }
 
-    _random=()=>{
+  /*  _random=()=>{
       for (let i = 0; i < 19; i++) {
         let r = Math.floor(Math.random()*80);
      
         this._inventory.agregar(new Producto(r,Math.floor(Math.random()*80),Math.floor(Math.random()*80),Math.floor(Math.random()*80)))
     }
-    }
+    }*/
   }
  new App();
 

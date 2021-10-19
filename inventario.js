@@ -57,47 +57,59 @@ export default class Inventario {
     return elim;
   }
   insertar(pos, producto) {
-    if (this.productos.length >= 20) {
-      return null;
-    }
     let find = this.buscar(producto.getCodigo());
-    if (pos > this.productos + 1 || find != null) {
+    if (pos > this.contar|| find != null) {
       return null;
     }
-    this.productos.push(null);
-    for (
-      let i = pos, j = this.productos.length - 1;
-      i < this.productos.length - 1;
-      i++, j--
-    ) {
-      this.productos[j] = this.productos[j - 1];
+    if(pos!=1){
+      let temp=this.inicio;
+        for(let i=1;i<pos-1;i++){
+            temp =temp.siguiente;
+      }
+      producto.siguiente=temp.siguiente;
+      temp.siguiente=producto
+      return producto
     }
-    this.productos[pos] = producto;
-    return this.productos;
+    producto.siguiente=this.inicio;
+    this.inicio=producto
+    return producto
   }
   list(){
-    let aux=this.inicio;
-    let resultado="";
-    if(this.inicio==null){
-        return "Error";
-    }
-    else{
-    while(aux!=null){
-        resultado+=aux.infoHtml();
-        aux=aux.siguiente;
-    }
-    return resultado;
-}
-}
-  inverseList() {
-    let detalles = "";
-    for (let i = this.productos.length - 1; i >= 0; i--) {
-      const p = this.productos[i];
-      detalles += p.infoHtml();
-    }
-    return detalles;
+    if (!this.inicio)
+      return '';
+    else
+      return this._listarRec(this.inicio);
   }
-  getLength() {
-    return this.productos.length;
+  _listarRec(n){
+    if (n.siguiente==null)
+      return n.infoHtml();
+    else
+      return n.infoHtml() + '\n' + this._listarRec(n.siguiente);
+  }        
+  inverseList(){
+    if (!this.inicio)
+      return '';
+    else
+      return this._listarRecInverso(this.inicio);
   }
+  _listarRecInverso(n){
+    if (n.siguiente==null)
+      return n.infoHtml();
+    else
+      return   this._listarRecInverso(n.siguiente) + n.infoHtml() ;
+  }  
+  
+  
+
+  contar(){
+    let resultado=0;
+          if (!this.inicio)
+            return 0;
+          let temp=this.inicio;
+          while(temp!=null){
+           resultado++
+            temp=temp.siguiente;
+          }
+          return resultado;
+}
 }
